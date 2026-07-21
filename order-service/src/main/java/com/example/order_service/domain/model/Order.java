@@ -13,4 +13,20 @@ public record Order(
         BigDecimal totalAmount,
         Instant createdAt,
         Instant updatedAt
-) { }
+) {
+
+    public static Order create(UUID userId, BigDecimal totalAmount) {
+
+        Instant now = Instant.now();
+
+        return new Order(
+                null,
+                userId,
+                OrderStatus.PENDING,
+                totalAmount,
+                now,
+                now
+        );
+    }
+
+}

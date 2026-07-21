@@ -11,4 +11,8 @@ public record OrderItem(
     BigDecimal unitPrice,
     int quantity,
     BigDecimal subtotal
-) { }
+) {
+    public OrderItem(Order order, Product product, String productName, BigDecimal unitPrice, int quantity, BigDecimal subtotal) {
+        this(null, order, product, productName, unitPrice, quantity, subtotal);
+    }
+}
