@@ -51,7 +51,7 @@ services:
     container_name: saga-orchestrator
     environment:
       DB_HOST: postgres
-      ORDER_DB: ${ORDER_DB}
+      SAGA_DB: ${SAGA_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
@@ -81,7 +81,7 @@ services:
     container_name: inventory-service
     environment:
       DB_HOST: postgres
-      ORDER_DB: ${ORDER_DB}
+      INVENTORY_DB: ${INVENTORY_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
@@ -96,7 +96,7 @@ services:
     container_name: dispatch-service
     environment:
       DB_HOST: postgres
-      ORDER_DB: ${ORDER_DB}
+      DISPATCH_DB: ${DISPATCH_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
