@@ -8,7 +8,7 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "indempotency_keys")
-public class IndempotencyKeysEntity {
+public class IdempotencyKeysEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

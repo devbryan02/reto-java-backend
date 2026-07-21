@@ -8,4 +8,10 @@ public record IdempotencyKeys(
         String indempotencyKey,
         Order order,
         Instant createdAt
-) { }
+) {
+
+    public static IdempotencyKeys createIdempotencyKeys(String indempotencyKey, Order order) {
+        return new IdempotencyKeys(null, indempotencyKey, order, Instant.now());
+    }
+
+}

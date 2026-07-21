@@ -12,7 +12,9 @@ public record OrderItem(
     int quantity,
     BigDecimal subtotal
 ) {
-    public OrderItem(Order order, Product product, String productName, BigDecimal unitPrice, int quantity, BigDecimal subtotal) {
-        this(null, order, product, productName, unitPrice, quantity, subtotal);
+
+    public static OrderItem createOrderItem(Order order, Product product, String productName, BigDecimal unitPrice, int quantity, BigDecimal subtotal) {
+        return new OrderItem(null, order, product, productName, unitPrice, quantity, subtotal);
     }
+
 }

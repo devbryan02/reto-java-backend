@@ -11,4 +11,10 @@ public record OrderHistory(
         OrderStatus status,
         String message,
         Instant createdAt
-) { }
+) {
+
+    public static OrderHistory saveHistory(Order order, OrderStatus status, String message) {
+        return new OrderHistory(null, order, status, message, Instant.now());
+    }
+
+}

@@ -15,10 +15,8 @@ public record Order(
         Instant updatedAt
 ) {
 
-    public static Order create(UUID userId, BigDecimal totalAmount) {
-
+    public static Order createOrderPending(UUID userId, BigDecimal totalAmount) {
         Instant now = Instant.now();
-
         return new Order(
                 null,
                 userId,
@@ -26,6 +24,17 @@ public record Order(
                 totalAmount,
                 now,
                 now
+        );
+    }
+
+    public Order updateTotalAmount(BigDecimal totalAmount) {
+        return new Order(
+                this.id,
+                this.userId,
+                this.status,
+                totalAmount,
+                this.createdAt,
+                Instant.now()
         );
     }
 
