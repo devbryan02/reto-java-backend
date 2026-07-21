@@ -41,6 +41,9 @@ dependencies {
 	implementation ("org.mapstruct:mapstruct:1.6.3")
 	annotationProcessor ("org.mapstruct:mapstruct-processor:1.6.3")
 }
+tasks.bootJar {
+	archiveFileName.set("app.jar")
+}
 
 tasks.withType<Test> {
 	useJUnitPlatform()
