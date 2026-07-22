@@ -23,7 +23,7 @@ public class IdempotencyKeysRepositoryImpl implements IdempotencyKeysRepository 
 
     @Override
     public Optional<IdempotencyKeys> findByKey(String indempotencyKey) {
-        return jpaRepository.findByIndempotencyKey(indempotencyKey)
+        return jpaRepository.findByIdempotencyKey(indempotencyKey)
                 .map(mapper::toDomain);
     }
 }

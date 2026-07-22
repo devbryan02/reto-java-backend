@@ -1,4 +1,4 @@
-package com.example.order_service.infrastructure.rest;
+package com.example.order_service.infrastructure.rest.order;
 
 import com.example.order_service.application.dto.CreateOrderRequest;
 import com.example.order_service.application.dto.CreateOrderResponse;
@@ -8,7 +8,7 @@ import com.example.order_service.application.usecase.history.GetOrderHistoryUseC
 import com.example.order_service.application.usecase.order.CancelOrderUseCase;
 import com.example.order_service.application.usecase.order.CreateOrderUseCase;
 import com.example.order_service.application.usecase.order.GetOrderUseCase;
-import com.example.order_service.infrastructure.rest.mapper.OrderHttpMapper;
+import com.example.order_service.infrastructure.rest.order.mapper.OrderHttpMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

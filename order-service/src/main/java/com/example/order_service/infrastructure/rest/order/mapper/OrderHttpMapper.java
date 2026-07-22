@@ -1,4 +1,4 @@
-package com.example.order_service.infrastructure.rest.mapper;
+package com.example.order_service.infrastructure.rest.order.mapper;
 
 import com.example.order_service.application.dto.OrderHistoryResponse;
 import com.example.order_service.application.dto.OrderResponse;

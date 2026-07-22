@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface IdempotencyKeysJpaRepository  extends JpaRepository<IdempotencyKeysEntity, UUID> {
 
-    Optional<IdempotencyKeysEntity> findByIndempotencyKey(String indempotencyKey);
+    Optional<IdempotencyKeysEntity> findByIdempotencyKey(String indempotencyKey);
 
 }
