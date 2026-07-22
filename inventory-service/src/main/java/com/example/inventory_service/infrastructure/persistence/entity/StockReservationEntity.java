@@ -1,5 +1,6 @@
 package com.example.inventory_service.infrastructure.persistence.entity;
 
+import com.example.inventory_service.domain.enums.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,7 +21,9 @@ public class StockReservationEntity {
     @Column(name = "product_id")
     private UUID productId;
     private Integer quantity;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus status;
 
     @Column(name = "created_at")
     private Instant createdAt;
