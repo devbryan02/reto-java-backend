@@ -4,6 +4,7 @@ import com.example.order_service.domain.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -21,6 +22,6 @@ public class OrderHistoryEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
     private String message;
-    private String createdAt;
+    private Instant createdAt;
 
 }
