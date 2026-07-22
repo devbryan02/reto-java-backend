@@ -1,6 +1,7 @@
 package com.example.order_service.domain.model;
 
 import com.example.order_service.domain.enums.OrderStatus;
+import com.example.order_service.domain.exception.InvalidOrderStateTransitionException;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -37,5 +38,23 @@ public record Order(
                 Instant.now()
         );
     }
+
+    public Order cancel(){
+        if(this.status == OrderStatus.DISPATCHED)
+            throw new InvalidOrderStateTransitionException("No se puede cancelar un pedido despachado");
+
+        if(this.status == OrderStatus.CANCELLED || this.status == OrderStatus.FAILED)
+            throw new InvalidOrderStateTransitionException("El pedido ya se encuentra en estado " + this.status);
+
+        return new Order(
+                this.id,
+                this.userId,
+                OrderStatus.CANCELLED,
+                this.totalAmount,
+                this.createdAt,
+                Instant.now()
+        );
+    }
+
 
 }

@@ -7,6 +7,10 @@ import com.example.order_service.infrastructure.persistence.respository.jpa.Orde
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
 @RequiredArgsConstructor
 public class OderHistoryRepositoryImpl implements OrderHistoryRepository {
@@ -18,4 +22,14 @@ public class OderHistoryRepositoryImpl implements OrderHistoryRepository {
     public OrderHistory save(OrderHistory orderHistory) {
         return mapper.toDomain(jpaRepository.save(mapper.toEntity(orderHistory)));
     }
+
+    @Override
+    public List<OrderHistory> findByOrderId(UUID orderId) {
+        return jpaRepository.findByOrder_IdOrderByCreatedAtDesc(orderId)
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
+    }
+
+
 }
