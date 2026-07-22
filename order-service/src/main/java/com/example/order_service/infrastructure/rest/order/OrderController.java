@@ -9,6 +9,8 @@ import com.example.order_service.application.usecase.order.CancelOrderUseCase;
 import com.example.order_service.application.usecase.order.CreateOrderUseCase;
 import com.example.order_service.application.usecase.order.GetOrderUseCase;
 import com.example.order_service.infrastructure.rest.order.mapper.OrderHttpMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
+@Tag(name = "Order", description = "Order API Service")
 public class OrderController {
 
     private final CreateOrderUseCase createOrderUseCase;
@@ -31,6 +34,7 @@ public class OrderController {
     private final OrderHttpMapper httpMapper;
 
     @PostMapping
+    @Operation(summary = "Create a new order")
     public Mono<ResponseEntity<CreateOrderResponse>> createOrder(
             @RequestBody @Valid CreateOrderRequest request,
             @RequestHeader(value = "Idempotency-Key", required = false) String idempotencyKey){
@@ -45,18 +49,21 @@ public class OrderController {
     }
 
     @GetMapping("/{orderId}")
+    @Operation(summary = "Get order by id")
     public Mono<ResponseEntity<OrderResponse>> getOrder(@PathVariable("orderId") UUID orderId){
         return getOrderUseCase.execute(orderId)
                 .map(order -> ResponseEntity.ok(httpMapper.toOrderResponse(order)));
     }
 
     @PostMapping("/{orderId}/cancel")
+    @Operation(summary = "Cancel order by id")
     public Mono<ResponseEntity<OrderResponse>> cancelOrder(@PathVariable("orderId") UUID orderId){
         return cancelOrderUseCase.execute(orderId)
                 .map(order -> ResponseEntity.ok(httpMapper.toOrderResponse(order)));
     }
 
     @GetMapping("/{orderId}/history")
+    @Operation(summary = "Get order history by id")
     public Flux<OrderHistoryResponse> getOrderHistory(@PathVariable("orderId") UUID orderId){
         return getOrderHistoryUseCase.execute(orderId)
                 .map(httpMapper::toHistoryResponse);
