@@ -1,0 +1,30 @@
+INSERT INTO products (
+    id,
+    name,
+    description,
+    price,
+    active,
+    created_at,
+    updated_at
+)
+VALUES
+    ('a0000000-0000-0000-0000-000000000001', 'Laptop Lenovo IdeaPad', 'Laptop Lenovo IdeaPad 15 pulgadas', 2899.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000002', 'Mouse Logitech M185', 'Mouse inalámbrico Logitech', 59.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000003', 'Teclado Mecánico Redragon', 'Teclado mecánico RGB', 199.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000004', 'Monitor Samsung 24"', 'Monitor Full HD de 24 pulgadas', 699.00, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000005', 'Disco SSD Kingston 1TB', 'Unidad SSD SATA de 1TB', 329.50, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000006', 'Memoria RAM 16GB', 'DDR4 3200MHz', 249.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000007', 'Audífonos JBL Tune', 'Audífonos inalámbricos Bluetooth', 189.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000008', 'Webcam Logitech C920', 'Cámara web Full HD', 349.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000009', 'Impresora Epson L3250', 'Impresora multifuncional WiFi', 799.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000010', 'Silla Gamer Cougar', 'Silla ergonómica gamer', 1199.00, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000011', 'Tablet Samsung A9', 'Tablet Android de 10 pulgadas', 899.00, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000012', 'Smartphone Xiaomi Redmi Note 14', 'Celular 256GB', 1499.00, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000013', 'Power Bank Xiaomi', 'Batería portátil 20000mAh', 129.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000014', 'Cable USB-C', 'Cable de carga rápida 1 metro', 29.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000015', 'Router TP-Link AX1800', 'Router WiFi 6', 399.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000016', 'Parlante JBL Flip 6', 'Parlante Bluetooth portátil', 549.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000017', 'Smartwatch Huawei GT4', 'Reloj inteligente', 899.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000018', 'Cargador USB-C 65W', 'Cargador de carga rápida', 119.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000019', 'Disco Externo Seagate 2TB', 'Disco duro portátil USB 3.0', 449.90, true, NOW(), NOW()),
+    ('a0000000-0000-0000-0000-000000000020', 'Micrófono HyperX SoloCast', 'Micrófono USB para streaming', 279.90, true, NOW(), NOW());
