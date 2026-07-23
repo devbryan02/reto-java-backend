@@ -7,6 +7,9 @@ import com.example.dispatch_service.infrastructure.persistence.repository.jpa.Di
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
 @RequiredArgsConstructor
 public class DispatchRepositoryImpl implements DispatchRepository {
@@ -17,5 +20,10 @@ public class DispatchRepositoryImpl implements DispatchRepository {
     @Override
     public Dispatch save(Dispatch dispatch) {
         return mapper.toDomain(jpaRepository.save(mapper.toEntity(dispatch)));
+    }
+
+    @Override
+    public Optional<Dispatch> findByOrderId(UUID orderId) {
+        return jpaRepository.findByOrderId(orderId).map(mapper::toDomain);
     }
 }

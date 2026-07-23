@@ -1,5 +1,9 @@
 package com.example.dispatch_service.application.dto;
 
-public record CreateDispacthRequest(
+import jakarta.validation.constraints.NotNull;
 
+import java.util.UUID;
+
+public record CreateDispacthRequest(
+        @NotNull UUID orderId
 ) { }

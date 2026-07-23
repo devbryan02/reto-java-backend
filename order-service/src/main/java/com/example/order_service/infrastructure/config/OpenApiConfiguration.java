@@ -18,8 +18,8 @@ public class OpenApiConfiguration {
         return new OpenAPI()
 
                 .info(new Info()
-                        .title("Oder Service API")
-                        .description("API for managing orders")
+                        .title("Order Service API")
+                        .description("Order management API")
                         .version("1.0.0"))
 
                 .addSecurityItem(new SecurityRequirement()
