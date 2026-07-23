@@ -23,9 +23,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-security-oauth2-resource-server")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
-	implementation("org.springframework.boot:spring-boot-starter-webmvc")
 	implementation("org.flywaydb:flyway-database-postgresql")
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.2")
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:3.0.2")
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
@@ -38,6 +38,8 @@ dependencies {
 	testCompileOnly("org.projectlombok:lombok")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	testAnnotationProcessor("org.projectlombok:lombok")
+	implementation("org.mapstruct:mapstruct:1.6.3")
+	annotationProcessor ("org.mapstruct:mapstruct-processor:1.6.3")
 }
 
 tasks.bootJar {
