@@ -2,11 +2,14 @@ package com.example.order_service.infrastructure.rest.order;
 
 import com.example.order_service.application.dto.CreateOrderRequest;
 import com.example.order_service.application.dto.CreateOrderResponse;
+import com.example.order_service.application.dto.FailOrderRequest;
 import com.example.order_service.application.dto.OrderHistoryResponse;
 import com.example.order_service.application.dto.OrderResponse;
 import com.example.order_service.application.usecase.history.GetOrderHistoryUseCase;
 import com.example.order_service.application.usecase.order.CancelOrderUseCase;
+import com.example.order_service.application.usecase.order.ConfirmOrderUseCase;
 import com.example.order_service.application.usecase.order.CreateOrderUseCase;
+import com.example.order_service.application.usecase.order.FailOrderUseCase;
 import com.example.order_service.application.usecase.order.GetOrderUseCase;
 import com.example.order_service.infrastructure.rest.order.mapper.OrderHttpMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,6 +34,8 @@ public class OrderController {
     private final GetOrderUseCase getOrderUseCase;
     private final GetOrderHistoryUseCase getOrderHistoryUseCase;
     private final CancelOrderUseCase cancelOrderUseCase;
+    private final ConfirmOrderUseCase confirmOrderUseCase;
+    private final FailOrderUseCase failOrderUseCase;
     private final OrderHttpMapper httpMapper;
 
     @PostMapping
@@ -59,6 +64,23 @@ public class OrderController {
     @Operation(summary = "Cancel order by id")
     public Mono<ResponseEntity<OrderResponse>> cancelOrder(@PathVariable("orderId") UUID orderId){
         return cancelOrderUseCase.execute(orderId)
+                .map(order -> ResponseEntity.ok(httpMapper.toOrderResponse(order)));
+    }
+
+    @PostMapping("/{orderId}/confirm")
+    @Operation(summary = "Confirm order by id - used by Saga Orchestrator")
+    public Mono<ResponseEntity<OrderResponse>> confirmOrder(@PathVariable("orderId") UUID orderId){
+        return confirmOrderUseCase.execute(orderId)
+                .map(order -> ResponseEntity.ok(httpMapper.toOrderResponse(order)));
+    }
+
+    @PostMapping("/{orderId}/fail")
+    @Operation(summary = "Mark order as failed by id - used by Saga Orchestrator")
+    public Mono<ResponseEntity<OrderResponse>> failOrder(
+            @PathVariable("orderId") UUID orderId,
+            @RequestBody(required = false) FailOrderRequest request){
+        String reason = request != null ? request.reason() : null;
+        return failOrderUseCase.execute(orderId, reason)
                 .map(order -> ResponseEntity.ok(httpMapper.toOrderResponse(order)));
     }
 

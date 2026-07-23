@@ -56,5 +56,35 @@ public record Order(
         );
     }
 
+    public Order confirm(){
+        if(this.status != OrderStatus.PENDING)
+            throw new InvalidOrderStateTransitionException(
+                    "Solo se puede confirmar un pedido en estado PENDING, estado actual: " + this.status);
+
+        return new Order(
+                this.id,
+                this.userId,
+                OrderStatus.CONFIRMED,
+                this.totalAmount,
+                this.createdAt,
+                Instant.now()
+        );
+    }
+
+    public Order fail(){
+        if(this.status == OrderStatus.CANCELLED || this.status == OrderStatus.DISPATCHED
+                || this.status == OrderStatus.FAILED)
+            throw new InvalidOrderStateTransitionException(
+                    "No se puede marcar como FAILED un pedido en estado " + this.status);
+
+        return new Order(
+                this.id,
+                this.userId,
+                OrderStatus.FAILED,
+                this.totalAmount,
+                this.createdAt,
+                Instant.now()
+        );
+    }
 
 }
