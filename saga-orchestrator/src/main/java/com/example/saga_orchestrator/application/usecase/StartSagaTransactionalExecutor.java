@@ -10,10 +10,10 @@ import com.example.saga_orchestrator.infrastructure.client.inventory.dto.Release
 import com.example.saga_orchestrator.infrastructure.client.inventory.dto.ReserveStockClientRequest;
 import com.example.saga_orchestrator.infrastructure.client.inventory.dto.StockItemClientRequest;
 import com.example.saga_orchestrator.infrastructure.client.inventory.service.InventoryServiceClient;
-import com.example.saga_orchestrator.infrastructure.client.order.OrderServiceClient;
 import com.example.saga_orchestrator.infrastructure.client.order.dto.CreateOrderClientRequest;
 import com.example.saga_orchestrator.infrastructure.client.order.dto.CreateOrderClientResponse;
 import com.example.saga_orchestrator.infrastructure.client.order.dto.OrderItemClientRequest;
+import com.example.saga_orchestrator.infrastructure.client.order.service.OrderServiceClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
