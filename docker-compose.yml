@@ -101,6 +101,22 @@ services:
     networks:
       - backend-network
 
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    environment:
+      KEYCLOAK_ISSUER_URI: ${KEYCLOAK_ISSUER_URI}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - keycloak
+      - order-service
+      - inventory-service
+      - dispatch-service
+      - saga-orchestrator
+    networks:
+      - backend-network
+
 networks:
     backend-network:
 
