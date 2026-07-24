@@ -46,8 +46,6 @@ class CreateOrderTransactionalExecutor {
 
         // 3. Creamos cada item del pedido y calcular el subtotal
         BigDecimal runningTotal = BigDecimal.ZERO;
-        log.info("Cantidad de items: {}", request.items().size());
-
         for (OrderItemRequest itemReq : request.items()) {
 
             Product product = productRepository.findById(itemReq.productId())
@@ -56,10 +54,8 @@ class CreateOrderTransactionalExecutor {
 
             BigDecimal unitPrice = BigDecimal.valueOf(product.price());
             BigDecimal subtotal = unitPrice.multiply(BigDecimal.valueOf(itemReq.quantity()));
-            log.info("Subtotal: {}", subtotal);
 
             runningTotal = runningTotal.add(subtotal);
-            log.info("Running total: {}", runningTotal);
 
             OrderItem item = OrderItem.createOrderItem(
                     orderSaved,
