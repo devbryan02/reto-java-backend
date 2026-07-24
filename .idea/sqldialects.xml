@@ -9,5 +9,6 @@
     <file url="file://$PROJECT_DIR$/order-service/src/main/resources/db/migration/V2__create_order_table.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/order-service/src/main/resources/db/migration/V5__create_indempotency_keys_table.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/order-service/src/main/resources/db/migration/V6__seed_products_data.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/saga-orchestrator/src/main/resources/db/migration/V1__create_saga_execution_table.sql" dialect="PostgreSQL" />
   </component>
 </project>

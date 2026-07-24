@@ -1,6 +1,7 @@
 package com.example.saga_orchestrator.infrastructure.rest.exception;
 
 import com.example.saga_orchestrator.domain.exception.BusinessException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.codec.DecodingException;
 import org.springframework.http.HttpStatus;
@@ -13,11 +14,14 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @ExceptionHandler(BusinessException.class)
     public Mono<ResponseEntity<ErrorResponse>> handleBusinessException(
@@ -46,19 +50,42 @@ public class GlobalExceptionHandler {
             ServerWebExchange exchange) {
 
         String traceId = getTraceId(exchange);
+        String downstreamBody = ex.getResponseBodyAsString();
 
         log.error("[{}] Error llamando a microservicio downstream [{}]: {}",
-                traceId, ex.getStatusCode(), ex.getResponseBodyAsString());
+                traceId, ex.getStatusCode(), downstreamBody);
 
-        ErrorResponse response = new ErrorResponse(
+        // Intentamos parsear el ErrorResponse que el microservicio downstream ya generó
+        ErrorResponse response = tryParseDownstreamError(downstreamBody, traceId);
+
+        if (response != null) {
+            return Mono.just(ResponseEntity.status(response.status()).body(response));
+        }
+
+        // Fallback si el body no se pudo parsear (ej: el downstream ni siquiera respondió JSON)
+        ErrorResponse fallback = new ErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.BAD_GATEWAY.value(),
                 "DOWNSTREAM_SERVICE_ERROR",
                 "Error al comunicarse con un microservicio: " + ex.getStatusCode(),
                 traceId
         );
+        return Mono.just(ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(fallback));
+    }
 
-        return Mono.just(ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(response));
+    private ErrorResponse tryParseDownstreamError(String body, String traceId) {
+        if (body == null || body.isBlank()) return null;
+        try {
+            Map<String, Object> parsed = objectMapper.readValue(body, Map.class);
+            int status = (int) parsed.getOrDefault("status", HttpStatus.BAD_GATEWAY.value());
+            String code = (String) parsed.getOrDefault("code", "DOWNSTREAM_SERVICE_ERROR");
+            String message = (String) parsed.getOrDefault("message", "Error en microservicio downstream");
+
+            return new ErrorResponse(LocalDateTime.now(), status, code, message, traceId);
+        } catch (Exception e) {
+            log.warn("[{}] No se pudo parsear el body de error downstream", traceId);
+            return null;
+        }
     }
 
     @ExceptionHandler(WebExchangeBindException.class)

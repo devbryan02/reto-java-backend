@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
                 traceId
         );
 
-        return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response));
+        return Mono.just(ResponseEntity.status(ex.getStatus()).body(response));
     }
 
     @ExceptionHandler(WebExchangeBindException.class)
